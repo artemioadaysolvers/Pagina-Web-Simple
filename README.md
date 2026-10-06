@@ -1,42 +1,45 @@
-# AutoMind Cursos: Hello World
+# Página de suma con backend
 
-Página web mínima que muestra `hello world` en rojo. El proyecto se sirve con
-Nginx en el puerto 8080 y se puede ejecutar localmente con Docker Compose o
-desplegar en Google Cloud Run con Cloud Build.
+La página muestra `hello world` en rojo y permite introducir dos números.
+Al pulsar **Sumar**, envía los números al backend (`POST /api/sumar`) y muestra
+la respuesta. El frontend y el backend se sirven desde el mismo proceso Node.js.
 
-## Archivos
-
-- `gpt-proxy/index.html`: página web.
-- `gpt-proxy/Dockerfile` y `gpt-proxy/nginx.conf`: imagen y servidor web.
-- `gpt-proxy/compose.yaml`: ejecución local.
-- `gpt-proxy/cloudbuild.yaml`: construcción y despliegue en Cloud Run.
-
-## Ejecución local
-
-Desde la raíz de este proyecto:
+## Ejecutar localmente
 
 ```sh
-docker compose -f gpt-proxy/compose.yaml up --build
+npm start
 ```
 
-Abrir http://localhost:8080. Para detenerlo, usar Ctrl+C.
+Abrir http://localhost:8080. También puedes usar `docker compose up --build`.
+No hay dependencias de npm que instalar.
 
-## Despliegue en Cloud Run
+## Publicar en Azure desde GitHub privado
 
-El YAML usa la región `us-central1`, el servicio `automind-cursos` y el
-repositorio de Artifact Registry `cloud-run-source-deploy`. Antes del primer
-despliegue, habilita Cloud Build, Cloud Run y Artifact Registry, crea ese
-repositorio Docker en la región indicada y concede a la cuenta de servicio de
-Cloud Build permisos para publicar imágenes y desplegar Cloud Run.
+Azure Blob Storage solo publica archivos estáticos; para ejecutar este backend
+crea una **Web App (App Service)** con publicación de **código**, runtime Node.js
+y una región permitida por tu suscripción. Elige el plan Free F1 si está disponible.
+Azure te dará una dirección `*.azurewebsites.net` sin comprar un dominio.
 
-Desde la raíz del proyecto:
+El workflow `.github/workflows/publicar-azure-app-service.yml` despliega
+automáticamente cada cambio de la rama `main`. Si tu rama tiene otro nombre,
+modifica `branches` en el workflow.
 
-```sh
-gcloud builds submit --config gpt-proxy/cloudbuild.yaml .
-```
+En la configuración del repositorio de GitHub, crea:
 
-Si tu proyecto usa otra región, nombre de servicio o repositorio, cambia las
-substituciones `_REGION`, `_SERVICE` y `_REPO` del YAML antes de desplegar.
+- Variable de Actions `AZURE_WEBAPP_NAME`: nombre exacto de la Web App en Azure.
+- Secreto de Actions `AZURE_WEBAPP_PUBLISH_PROFILE`: contenido completo del
+  perfil de publicación descargado desde la Web App. Nunca lo guardes en el repo.
 
-El repositorio conserva la ubicación `gpt-proxy/cloudbuild.yaml` para que un
-trigger que ya apunte a esa ruta pueda seguir usándola.
+El secreto `AZURE_STORAGE_CONNECTION_STRING` del sitio estático anterior no se
+utiliza en esta versión. El sitio anterior de Blob Storage tampoco se actualizará
+con este workflow.
+
+Si Azure no permite descargar el perfil de publicación, configura la conexión
+con GitHub desde **Centro de implementación** de la Web App; Azure generará su
+propio workflow con la autenticación disponible para tu cuenta.
+
+## Otros archivos
+
+`Dockerfile` y `compose.yaml` permiten ejecutar el proyecto en un contenedor.
+`cloudbuild.yaml` mantiene una opción de despliegue en Google Cloud Run, separada
+del workflow de Azure.
