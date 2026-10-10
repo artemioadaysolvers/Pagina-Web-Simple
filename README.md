@@ -1,7 +1,7 @@
-Tutorial Sencillo sobre como utilizar Microsoft Azure para subir una página web desde Github para el Curso de Taller
-de Innovación y Emprendimiento Tecnológico 2026 del Segundo Semestre.
+Tutorial Sencillo sobre como utilizar Microsoft Azure para subir una página web utilizando Github para el Curso de Taller
+de Innovación y Emprendimiento Tecnológico 2026 del Segundo Semestre de la Universidad Adolfo Ibáñez.
 
-Hecho por el Ayudante Instructor Artemio Araya Day con ayuda de Codex, Universidad Adolfo Ibáñez.
+Hecho por el Ayudante Instructor Artemio Araya Day con ayuda de Codex.
 
 Profesor del Curso: Martín Céspedes Escuti 
 
