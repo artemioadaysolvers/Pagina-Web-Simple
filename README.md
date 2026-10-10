@@ -1,3 +1,10 @@
+Tutorial Sencillo sobre como utilizar Microsoft Azure para subir una página web desde Github para el Curso de Taller
+de Innovación y Emprendimiento Tecnológico 2026 del Segundo Semestre.
+
+Hecho por el Ayudante Instructor Artemio Araya Day con ayuda de Codex, Universidad Adolfo Ibáñez.
+
+Profesor del Curso: Martín Céspedes Escuti 
+
 # Página de suma con backend
 
 La página muestra `hello world` en rojo y permite introducir dos números.
