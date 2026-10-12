@@ -1,0 +1,62 @@
+name: Probar Python y desplegar en Azure App Service
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Python 3.14.8
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.8'
+
+      - name: Verificar version y ejecutar pruebas
+        run: |
+          python --version
+          python -m unittest discover -v
+
+      - name: Preparar archivos para Azure
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-app
+          path: |
+            server.py
+            index.html
+            requirements.txt
+            .python-version
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Descargar proyecto
+        uses: actions/download-artifact@v4
+        with:
+          name: python-app
+
+      - name: Autenticarse en Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_3681E5F1E589498D81160EF11062609B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CAD55F467C9F497F88AF8D19DCE438AC }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_74E9D5C7D2AB4D5790F5183E01E7B84E }}
+
+      - name: Desplegar en Azure App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: paginacalculadora
+          slot-name: Production
+          package: .
