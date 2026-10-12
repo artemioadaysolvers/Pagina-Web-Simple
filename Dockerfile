@@ -1,0 +1,12 @@
+FROM python:3.14.8-slim
+
+WORKDIR /app
+COPY --chown=65532:65532 server.py index.html ./
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PORT=8080
+
+EXPOSE 8080
+USER 65532:65532
+CMD ["python", "server.py"]
