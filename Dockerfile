@@ -1,4 +1,4 @@
-FROM python:3.14.8-slim
+FROM python:3.14.8-slim 
 
 WORKDIR /app
 COPY --chown=65532:65532 server.py index.html ./
