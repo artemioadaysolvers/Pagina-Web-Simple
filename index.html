@@ -1,0 +1,54 @@
+<!doctype html> 
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Suma de dos números</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 32rem; margin: 3rem auto; padding: 0 1rem; }
+      h1 { color: red; }
+      label { display: block; margin: 1rem 0; }
+      input { display: block; width: 100%; box-sizing: border-box; padding: .6rem; margin-top: .35rem; }
+      button { padding: .65rem 1rem; cursor: pointer; }
+      #resultado { font-size: 1.2rem; font-weight: bold; }
+    </style>
+  </head>
+  <body>
+    <h1>hello world</h1>
+    <form id="formulario">
+      <label for="numero1">Primer número
+        <input id="numero1" type="number" step="any" required>
+      </label>
+      <label for="numero2">Segundo número
+        <input id="numero2" type="number" step="any" required>
+      </label>
+      <button type="submit">Sumar</button>
+    </form>
+    <p id="resultado" role="status" aria-live="polite"></p>
+    <script>
+      const formulario = document.getElementById('formulario');
+      const resultado = document.getElementById('resultado');
+
+      formulario.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        resultado.textContent = 'Calculando…';
+
+        try {
+          const respuesta = await fetch('/api/sumar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              a: document.getElementById('numero1').valueAsNumber,
+              b: document.getElementById('numero2').valueAsNumber
+            })
+          });
+          const datos = await respuesta.json();
+          if (!respuesta.ok) throw new Error(datos.error || 'No se pudo sumar');
+          resultado.textContent = `La suma es: ${datos.suma}`;
+        } catch (error) {
+          resultado.textContent = error.message;
+        }
+      });
+    </script>
+  </body>
+</html>
