@@ -27,5 +27,5 @@ jobs:
       - name: Publicar sitio
         uses: azure/webapps-deploy@v3
         with:
-          app-name: NOMBRE-DE-TU-APLICACION
+          app-name: visualizador-web-estudiante01
           package: ./site
