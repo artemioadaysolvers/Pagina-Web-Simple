@@ -75,3 +75,7 @@ También puedes servir la carpeta `site/` con un servidor HTTP local.
 
 Los créditos y las condiciones de los recursos se incluyen en `ATTRIBUTIONS.md`
 y `FONT-LICENSE.txt`.
+
+La insignia AutoMind beige suministrada por el usuario está embebida en la página y en ambos visores. Las fichas, etiquetas y tarjetas de componentes siguen la paleta del cuaderno. Un único controlador reproduce el WAV al activar botones, controles y filas de componentes; el sonido anterior del visor se silencia para evitar duplicados.
+
+La cuadrícula 3D usa líneas marrones `#a39175` sobre el fondo beige, también cuando el visor reconstruye la cuadrícula. Para aplicar esta actualización a un repositorio existente, sustituye `site/` y conserva `.github/`.

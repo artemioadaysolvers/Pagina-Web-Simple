@@ -49,3 +49,5 @@ La referencia de la página principal es el PDF *Modelamiento Matemático (10).p
 La familia [Latin Modern](https://ctan.org/pkg/lm), de B. Jackowski y J. M. Nowacki, se distribuye bajo la [GUST Font License](https://ctan.org/license/gfl). La página incluye las variantes LMMono12 regular, LMMonoLt10 negrita y LMMono10 cursiva en sus estilos. La licencia de las fuentes corresponde exclusivamente a esa familia tipográfica y se incluye en `FONT-LICENSE.txt`. Las fuentes y el logotipo del crédito tecnológico están embebidos en la página y sus estilos.
 
 Esta presentación se aplica a la página principal y a la interfaz de ambos visores.
+
+La insignia AutoMind en tonos beige y marrón de esta versión fue proporcionada por el usuario y se incluye sin modificaciones, embebida en la página y ambos visores.
