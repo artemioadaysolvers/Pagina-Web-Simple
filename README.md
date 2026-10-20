@@ -1,30 +1,32 @@
-# AutoMind · Mechanics
+# Cuaderno de mecanismos
 
-Una página para explorar dos mecanismos de pinza en 3D: geometría, piezas y relaciones mecánicas, con los dos visores HTML originales de AutoMind integrados uno debajo del otro.
+Un cuaderno visual de [Artemio Araya](https://github.com/artemioadaysolvers) para explorar dos mecanismos de pinza en 3D: geometría, piezas y relaciones mecánicas. Los dos visores HTML originales se presentan uno debajo del otro, dentro de una única página.
 
 Frontend estático de HTML, CSS y JavaScript. Sin instalación de paquetes ni proceso de compilación. El despliegue en GitHub Pages publica únicamente la carpeta `site/`.
 
-## Herramientas de Artemio Araya
+La presentación toma como referencia el PDF *Modelamiento Matemático (10).pdf* proporcionado por el usuario: tipografía Latin Modern Mono, fondo de papel `#f2e8cf` y tinta `#332a24`.
 
-Las herramientas de AutoMind enlazadas aquí son desarrolladas por [Artemio Araya](https://github.com/artemioadaysolvers), cuyo perfil público figura como Artemio Araya Day.
+## Crédito tecnológico
+
+Utiliza tecnología de AutoMind, con código fuente disponible en GitHub. Las herramientas enlazadas son desarrolladas por [Artemio Araya](https://github.com/artemioadaysolvers), cuyo perfil público figura como Artemio Araya Day.
 
 - [AutoMind URDF / USD / MJCF Loader](https://github.com/artemioadaysolvers/AutoMind-URDF-USD-MJCF-Loader): visores de modelos URDF+, USD y MJCF para frontend web, Power BI y Google Colab.
 - [AutoMindCloud Experimental](https://github.com/artemioadaysolvers/AutoMindCloudExperimental): reúne sustitución automática complementaria a SymPy, resúmenes de cálculo con IA, pizarra y visores CAD y robóticos en Google Colab.
-- [Converter .IAM → MJCF / USD](https://github.com/artemioadaysolvers/.IAM-to-MJCF-USD-Plugin-AutoDesk-Inventor-): complemento de Autodesk Inventor que convierte ensamblajes `.IAM` a MJCF y USD. La dirección `AutoMind-IAM-to-MJCF` indicada inicialmente devolvía 404; el enlace anterior es el repositorio público verificado del mismo autor con esa función.
+- [Converter .IAM → MJCF / USD](https://github.com/artemioadaysolvers/.IAM-to-MJCF-USD-Plugin-AutoDesk-Inventor-): complemento de Autodesk Inventor que convierte ensamblajes `.IAM` a MJCF y USD.
 
-La propuesta de innovación conecta diseño CAD, visualización robótica y cálculo interactivo entre herramientas. Google Colab corresponde a los proyectos enlazados; esta página se publica como un frontend estático.
+Google Colab corresponde a los proyectos enlazados; esta página se publica como un frontend estático. Los créditos y las condiciones de cada recurso se documentan por separado en [ATTRIBUTIONS.md](ATTRIBUTIONS.md).
 
 ## Publicar en GitHub
 
-1. Crea un repositorio vacío en GitHub, por ejemplo `automind-mechanics`.
+1. Crea un repositorio vacío en GitHub, por ejemplo `cuaderno-mecanismos`.
 2. Desde esta carpeta, sube los archivos; sustituye `TU_USUARIO` por tu cuenta:
 
    ```sh
    git init
    git add .
-   git commit -m "Agregar galería de mecanismos AutoMind"
+   git commit -m "Agregar Cuaderno de mecanismos"
    git branch -M main
-   git remote add origin https://github.com/TU_USUARIO/automind-mechanics.git
+   git remote add origin https://github.com/TU_USUARIO/cuaderno-mecanismos.git
    git push -u origin main
    ```
 
@@ -33,7 +35,7 @@ La propuesta de innovación conecta diseño CAD, visualización robótica y cál
 3. En el repositorio, abre **Settings → Pages → Build and deployment → Source** y elige **GitHub Actions**.
 4. En **Actions**, abre **Publicar en GitHub Pages** y pulsa **Run workflow** sobre `main` si el primer despliegue todavía no se ha completado.
 
-La dirección será `https://TU_USUARIO.github.io/automind-mechanics/`. Los siguientes cambios enviados a `main` se publican automáticamente. El flujo también se puede ejecutar manualmente desde **Actions**. No necesitas configurar secretos.
+La dirección será `https://TU_USUARIO.github.io/cuaderno-mecanismos/`. Los siguientes cambios enviados a `main` se publican automáticamente. El flujo también se puede ejecutar manualmente desde **Actions**. No necesitas configurar secretos.
 
 Referencia: [desplegar con un flujo personalizado de GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
@@ -58,7 +60,7 @@ Los dos archivos HTML suministrados se conservan sin modificaciones. La página 
 ```text
 site/
   index.html       Página principal
-  assets/          Estilos y logotipos
+  assets/          Estilos, tipografía y recursos visuales
   viewers/         Los dos HTML originales sin modificaciones
 .github/workflows/deploy.yml
 ATTRIBUTIONS.md
