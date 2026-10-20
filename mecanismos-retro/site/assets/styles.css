@@ -27,9 +27,9 @@ h1{font-size:34px;line-height:1.45;letter-spacing:.15px}
 h2{font-size:25px;font-weight:700}
 .model-section>p{max-width:1040px}
 .reference{font-size:14px;line-height:1.75;margin-top:14px;color:var(--muted);overflow-wrap:anywhere}
-.viewer-sheet{border:1px solid var(--line);margin-top:25px;background:#fff}
+.viewer-sheet{border:1px solid var(--line);margin-top:25px;background:var(--paper)}
 .viewer-caption{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:9px 16px;background:var(--paper);border-bottom:1px solid var(--line);color:var(--muted);font-size:11px;letter-spacing:1px}
-iframe{display:block;width:100%;height:780px;background:#fff;border:0}
+iframe{display:block;width:100%;height:780px;background:var(--paper);border:0}
 .technology{padding:35px 0 37px;border-top:1px solid var(--line)}
 .technology>.document-label{margin-bottom:18px}
 .technology-heading{display:grid;grid-template-columns:1fr 260px;gap:45px;align-items:center}
@@ -43,3 +43,6 @@ iframe{display:block;width:100%;height:780px;background:#fff;border:0}
 @media(max-width:900px){body{padding:18px}.paper{padding:0 30px}.technology-heading{grid-template-columns:1fr 210px;gap:30px}.technology-links li{grid-template-columns:280px 1fr;gap:20px}}
 @media(max-width:600px){body{padding:12px;font-size:16px}.paper{padding:0 18px}.document-header{align-items:flex-start;flex-direction:column;gap:12px;padding:21px 0;font-size:10px;letter-spacing:.7px}nav{font-size:13px;gap:25px}.cover{padding:34px 0 30px}.document-label{font-size:10px;letter-spacing:1px;margin-bottom:20px}h1{font-size:25px;line-height:1.5;letter-spacing:0}.author{font-size:14px;margin-top:20px}.introduction{margin-top:25px}.instructions{font-size:13px}.model-section{padding:27px 0 30px}.section-heading{gap:12px;margin-bottom:17px}h2{font-size:21px}.section-number{font-size:13px}.reference{font-size:12px}.viewer-caption{padding:9px;font-size:9px;letter-spacing:0;gap:10px}iframe{height:800px}.technology{padding:28px 0}.technology-heading{grid-template-columns:1fr;gap:24px}.technology-heading h2{font-size:21px}.technology-heading p{font-size:14px}.technology-logo{width:220px}.technology-links{font-size:13px;gap:20px;margin-top:24px}.technology-links li{grid-template-columns:1fr;gap:5px}.technology-note{font-size:12px}.document-footer{font-size:10px;flex-direction:column;align-items:flex-start;gap:10px;padding:20px 0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Native controls follow the notebook typography too. */
+button,input,select,textarea{font-family:inherit;color:inherit;accent-color:var(--muted)}

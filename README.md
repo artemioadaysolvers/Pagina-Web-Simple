@@ -53,7 +53,7 @@ Necesitas JavaScript y un navegador con WebGL habilitado. Los modelos están den
 
 La web tiene una única página principal con dos visores embebidos. El proyecto no utiliza Node.js, npm, TypeScript, frameworks, backend ni base de datos. Los visores conservan la carga de sus dependencias remotas tal como venía en los HTML originales.
 
-Los dos archivos HTML suministrados se conservan sin modificaciones. La página los incorpora mediante `iframe` y no altera su contenido, modelos ni dependencias.
+Los dos visores se incorporan mediante `iframe` y comparten el estilo del cuaderno: Latin Modern Mono, papel beige `#f2e8cf`, tinta marrón y controles de bordes discretos. El fondo del escenario 3D también es beige. Sus modelos y controles se conservan. El sonido anterior de los botones se sustituye por `mixkit-typewriter-soft-hit-1366.wav`, embebido en base64 en cada HTML; el audio no necesita conexión ni un archivo WAV aparte. Los módulos del visor siguen requiriendo Internet.
 
 ## Archivos
 
@@ -61,7 +61,7 @@ Los dos archivos HTML suministrados se conservan sin modificaciones. La página 
 site/
   index.html       Página principal
   assets/          Estilos, tipografía y recursos visuales
-  viewers/         Los dos HTML originales sin modificaciones
+  viewers/         Los dos visores con estilo y audio adaptados
 .github/workflows/deploy.yml
 ATTRIBUTIONS.md
 ```

@@ -13,12 +13,7 @@ Los dos visores parten de los archivos proporcionados por el usuario:
 
 Autor de las herramientas: Artemio Araya Day.
 
-Los dos HTML suministrados se conservan sin modificaciones y se muestran en dos `iframe`, uno debajo del otro, dentro de una única página. Conservan sus modelos, recursos, logotipos, avisos y direcciones de dependencias externas originales. El logotipo facilitado para el crédito tecnológico se utiliza en esa sección de la página.
-
-Se verificó que las copias son idénticas a los originales mediante SHA-256:
-
-- `AutoMind_MJCF_Modular_Viewer_1.html`: `839787d4eec1dbf906932165db40ffcc5c462154afd68f23cdd00ced65841c62`.
-- `AutoMind_MJCF_Modular_Viewer_2.html`: `61dba4ba9d2e63f2b5ed03deceb0b8279f8d01630e66995de8e213af6d9ce724`.
+Los dos HTML se adaptaron para compartir la tipografía Latin Modern Mono, el fondo beige y los controles del cuaderno. Conservan sus modelos, recursos, logotipos y avisos. El sonido anterior de los botones se reemplazó por el archivo `mixkit-typewriter-soft-hit-1366.wav` proporcionado por el usuario, embebido en cada visor.
 
 La regla de Git para `site/viewers/*.html` desactiva la conversión de finales de línea y conserva sus bytes al descargar el repositorio.
 
@@ -53,4 +48,4 @@ La referencia de la página principal es el PDF *Modelamiento Matemático (10).p
 
 La familia [Latin Modern](https://ctan.org/pkg/lm), de B. Jackowski y J. M. Nowacki, se distribuye bajo la [GUST Font License](https://ctan.org/license/gfl). La página incluye las variantes LMMono12 regular, LMMonoLt10 negrita y LMMono10 cursiva en sus estilos. La licencia de las fuentes corresponde exclusivamente a esa familia tipográfica y se incluye en `FONT-LICENSE.txt`. Las fuentes y el logotipo del crédito tecnológico están embebidos en la página y sus estilos.
 
-Esta presentación se aplica a la página principal. Los dos visores mantienen sus HTML originales intactos.
+Esta presentación se aplica a la página principal y a la interfaz de ambos visores.
