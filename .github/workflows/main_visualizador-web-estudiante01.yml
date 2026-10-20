@@ -1,0 +1,42 @@
+name: Publicar sitio en Azure - visualizador-web-estudiante01
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: azure-visualizador-web-estudiante01
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Publicar carpeta site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Comprobar pagina principal
+        run: test -f site/index.html
+
+      - name: Iniciar sesion en Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_203493497BF04F03B76930F1CAE12BDC }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B9A98E17C8FC4796A2C312F044F2C15B }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4781FB4078AB436C93910E9E77CB6D63 }}
+
+      - name: Publicar en Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: visualizador-web-estudiante01
+          slot-name: Production
+          package: site
