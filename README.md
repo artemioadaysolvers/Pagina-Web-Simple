@@ -1,6 +1,6 @@
 Tutorial para App Web I
 
-Tutorial para desarrollo y publicación de una página web con frontend programado en JavaScript, HTML y CSS, utilizando GitHub Desktop para manipular el repositorio, Microsoft Azure para su alojamiento y GitHub Actions para automatizar el despliegue desde GitHub.
+Tutorial para desarrollo y publicación de una página web con frontend programado en JavaScript, HTML y CSS, Microsoft Azure para su alojamiento y GitHub Actions para automatizar el despliegue desde GitHub. Asimismo, el tutorial enseña a utilizar GitHub Desktop para administrar el repositorio.
 
 Profesor: Martín Céspedes Escuti
 
