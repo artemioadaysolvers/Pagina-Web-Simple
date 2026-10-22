@@ -1,0 +1,89 @@
+# Tutorial Web I - Azure App Service Linux / Node.js 26
+# Seleccionar este archivo en: Azure > Centro de implementacion > Usar flujo de trabajo existente.
+# Azure configura los secretos AZURE_CLIENT_ID, AZURE_TENANT_ID y AZURE_SUBSCRIPTION_ID
+# al guardar la conexion con identidad asignada por el usuario.
+name: Publicar Tutorial Web I en Azure (workflow existente)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: azure-tutorial-web-i-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Publicar Node.js en Azure App Service
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar proyecto
+        uses: actions/checkout@v5
+
+      - name: Verificar contenido completo
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f package.json
+          test -f package-lock.json
+          test -f server.js
+          test -f site/index.html
+          test -f site/assets/styles.css
+          test -f site/viewers/AutoMind_MJCF_Modular_Viewer_1.html
+          test -f site/viewers/AutoMind_MJCF_Modular_Viewer_2.html
+
+      - name: Validar proyecto Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Verificar inicio del servidor
+        run: |
+          npm ci --ignore-scripts
+          npm run build
+
+      - name: Iniciar sesion en Azure (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Identificar aplicacion Azure
+        shell: bash
+        env:
+          RESOURCE_GROUP: rg-visualizador-web
+          APP_OVERRIDE: ${{ vars.AZURE_WEBAPP_NAME }}
+        run: |
+          set -euo pipefail
+          if [[ -n "${APP_OVERRIDE}" ]]; then
+            app_name="${APP_OVERRIDE}"
+          else
+            # En cada cuenta de estudiante, el tutorial crea este grupo.
+            # Si existe una sola App Service en el grupo, se elige automaticamente.
+            apps="$(az webapp list --resource-group "${RESOURCE_GROUP}" --query '[].name' -o tsv 2>/dev/null || true)"
+            mapfile -t names < <(printf '%s\n' "${apps}" | sed '/^[[:space:]]*$/d')
+            if [[ "${#names[@]}" -eq 1 ]]; then
+              app_name="${names[0]}"
+            elif [[ "${#names[@]}" -eq 0 ]] && az webapp show --resource-group "${RESOURCE_GROUP}" --name 'visualizador-web-estudiante01' -o none 2>/dev/null; then
+              app_name='visualizador-web-estudiante01'
+            else
+              echo 'No fue posible identificar una unica App Service de destino.' >&2
+              echo 'En GitHub > Settings > Secrets and variables > Actions > Variables, crear AZURE_WEBAPP_NAME con el nombre de tu aplicacion.' >&2
+              exit 1
+            fi
+          fi
+          echo "Destino: ${app_name}"
+          echo "AZURE_TARGET_APP=${app_name}" >> "${GITHUB_ENV}"
+
+      - name: Publicar aplicacion completa
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_TARGET_APP }}
+          slot-name: Production
+          package: '.'
