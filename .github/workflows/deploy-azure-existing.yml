@@ -1,7 +1,8 @@
 # Tutorial Web I - Azure App Service Linux / Node.js 26
 # Seleccionar este archivo en: Azure > Centro de implementacion > Usar flujo de trabajo existente.
-# Azure configura los secretos AZURE_CLIENT_ID, AZURE_TENANT_ID y AZURE_SUBSCRIPTION_ID
-# al guardar la conexion con identidad asignada por el usuario.
+# Compatible con secretos OIDC genericos de Azure y los de la configuracion inicial
+# de la aplicacion de ejemplo. No contiene los valores de ningun secreto.
+# Azure/GitHub deben proveer credenciales y una identidad federada valida.
 name: Publicar Tutorial Web I en Azure (workflow existente)
 
 on:
@@ -38,7 +39,7 @@ jobs:
           test -f site/viewers/AutoMind_MJCF_Modular_Viewer_2.html
 
       - name: Validar proyecto Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '24'
 
@@ -47,12 +48,27 @@ jobs:
           npm ci --ignore-scripts
           npm run build
 
+      # Azure puede crear secretos OIDC de nombre generico (AZURE_CLIENT_ID, etc.).
+      # Compatibilidad: la aplicacion original recibio nombres con sufijo al configurar Azure.
+      # Estos son solo NOMBRES de secretos; sus valores nunca se guardan en el repositorio.
+      - name: Comprobar credenciales OIDC configuradas
+        shell: bash
+        env:
+          AZ_CLIENT: ${{ secrets.AZURE_CLIENT_ID || secrets.AZUREAPPSERVICE_CLIENTID_8C3A1775AB8048FEA2DAB6F7FBF0B853 }}
+          AZ_TENANT: ${{ secrets.AZURE_TENANT_ID || secrets.AZUREAPPSERVICE_TENANTID_742062C05F3C48D0BB2A080BF0C407EA }}
+          AZ_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION_ID || secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D0D65476AAC945C49ED342E3BB303790 }}
+        run: |
+          if [[ -z "$AZ_CLIENT" || -z "$AZ_TENANT" || -z "$AZ_SUBSCRIPTION" ]]; then
+            echo '::error title=Credenciales OIDC ausentes::Azure no encontro los tres identificadores necesarios en GitHub Actions. Reconfigura Centro de implementacion con identidad asignada por el usuario y comprueba los nombres de los secretos. No es un problema de la pagina web.'
+            exit 1
+          fi
+
       - name: Iniciar sesion en Azure (OIDC)
-        uses: azure/login@v2
+        uses: azure/login@v3
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID || secrets.AZUREAPPSERVICE_CLIENTID_8C3A1775AB8048FEA2DAB6F7FBF0B853 }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID || secrets.AZUREAPPSERVICE_TENANTID_742062C05F3C48D0BB2A080BF0C407EA }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID || secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D0D65476AAC945C49ED342E3BB303790 }}
 
       - name: Identificar aplicacion Azure
         shell: bash
